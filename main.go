@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/qor/qor-example/config"
-	"github.com/qor/qor-example/config/admin"
-	"github.com/qor/qor-example/config/api"
-	"github.com/qor/qor-example/config/routes"
-	_ "github.com/qor/qor-example/db/migrations"
+	"github.com/isairz/hive/config"
+	"github.com/isairz/hive/config/admin"
+	"github.com/isairz/hive/config/api"
+	"github.com/isairz/hive/config/routes"
+	_ "github.com/isairz/hive/db/migrations"
 )
 
 func main() {

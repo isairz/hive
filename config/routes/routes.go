@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/qor/qor-example/app/controllers"
-	"github.com/qor/qor-example/config"
+	"github.com/isairz/hive/app/controllers"
+	"github.com/isairz/hive/config"
 )
 
 func Router() *http.ServeMux {

@@ -4,8 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/qor/qor-example/app/models"
-	"github.com/qor/qor-example/db"
+	"github.com/isairz/hive/app/models"
+	"github.com/isairz/hive/db"
 	"github.com/qor/seo"
 )
 

@@ -5,8 +5,8 @@ import (
 	"github.com/qor/admin"
 	"github.com/qor/media_library"
 	"github.com/qor/publish"
-	"github.com/qor/qor-example/app/models"
-	"github.com/qor/qor-example/db"
+	"github.com/isairz/hive/app/models"
+	"github.com/isairz/hive/db"
 	"github.com/qor/transition"
 )
 

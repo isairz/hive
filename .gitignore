@@ -23,7 +23,7 @@ _testmain.go
 *.test
 *.prof
 runner-build
-qor-example
+hive
 
 config/database*yml
 public/system

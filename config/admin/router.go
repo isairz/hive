@@ -3,7 +3,7 @@ package admin
 import (
 	"encoding/json"
 
-	"github.com/qor/qor-example/app/models"
+	"github.com/isairz/hive/app/models"
 	"github.com/qor/admin"
 )
 

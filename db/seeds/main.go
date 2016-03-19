@@ -18,9 +18,9 @@ import (
 	"github.com/qor/i18n/backends/database"
 	"github.com/qor/media_library"
 	"github.com/qor/publish"
-	"github.com/qor/qor-example/app/models"
-	"github.com/qor/qor-example/db"
-	"github.com/qor/qor-example/db/seeds"
+	"github.com/isairz/hive/app/models"
+	"github.com/isairz/hive/db"
+	"github.com/isairz/hive/db/seeds"
 	"github.com/qor/seo"
 	"github.com/qor/slug"
 )
