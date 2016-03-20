@@ -13,7 +13,7 @@ import (
 	"github.com/qor/validations"
 )
 
-type Product struct {
+type Manga struct {
 	gorm.Model
 	l10n.Locale
 	publish.Status
@@ -21,60 +21,52 @@ type Product struct {
 
 	Name            string
 	NameWithSlug    slug.Slug        `l10n:"sync"`
-	Code            string           `l10n:"sync"`
 	CategoryID      uint             `l10n:"sync"`
 	Category        Category         `l10n:"sync"`
-	Tags            []Tag            `l10n:"sync" gorm:"many2many:product_tags"`
+	Tags            []Tag            `l10n:"sync" gorm:"many2many:manga_tags"`
 	MadeCountry     string           `l10n:"sync"`
-	Price           float32          `l10n:"sync"`
 	Description     string           `sql:"size:2000"`
 	Chapters        []Chapter        `l10n:"sync"`
 	Enabled         bool
 }
 
-func (product Product) DefaultPath() string {
+func (manga Manga) DefaultPath() string {
 	defaultPath := "/"
-	if len(product.Chapters) > 0 {
-		defaultPath = fmt.Sprintf("/products/%s_%s", product.Code, product.Chapters[0].ChapterCode)
+	if len(manga.Chapters) > 0 {
+		defaultPath = fmt.Sprintf("/mangas/%s_%s", manga.ID, manga.Chapters[0].ID)
 	}
 	return defaultPath
 }
 
-func (product Product) MainImageUrl() string {
-	return product.Chapters[0].MainImageUrl()
+func (manga Manga) MainImageUrl() string {
+	return manga.Chapters[0].MainImageUrl()
 }
 
-func (product Product) Validate(db *gorm.DB) {
-	if strings.TrimSpace(product.Name) == "" {
-		db.AddError(validations.NewError(product, "Name", "Name can not be empty"))
-	}
-
-	if strings.TrimSpace(product.Code) == "" {
-		db.AddError(validations.NewError(product, "Code", "Code can not be empty"))
+func (manga Manga) Validate(db *gorm.DB) {
+	if strings.TrimSpace(manga.Name) == "" {
+		db.AddError(validations.NewError(manga, "Name", "Name can not be empty"))
 	}
 }
 
 type Chapter struct {
 	gorm.Model
-	ProductID      uint
-	Product        Product
-	// ColorID        uint
-	Chapter          string
-	ChapterCode      string
-	Images         []ChapterImage
-	// SizeVariations []SizeVariation
+    Title        string
+	MangaID      uint
+    Price        int
+	Manga        Manga
+	Images       []ChapterImage
 }
 
 type ChapterImage struct {
 	gorm.Model
 	ChapterID uint
-	Image            ChapterImageStorage `sql:"type:varchar(4096)"`
+	Image            ChapterImageStorage `sql:"type:varchar(409600)"`
 }
 
 type ChapterImageStorage struct{ media_library.FileSystem }
 
 func (chapter Chapter) MainImageUrl() string {
-	imageURL := "/images/default_product.png"
+	imageURL := "/images/default_manga.png"
 	if len(chapter.Images) > 0 {
 		imageURL = chapter.Images[0].Image.URL()
 	}

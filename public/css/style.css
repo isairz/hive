@@ -501,20 +501,20 @@ h3.head.text-center {
     font-weight: 500;
 	    padding: 0;
 }
-.products-grid {
+.mangas-grid {
     padding: 30px 0;
 }
-.product {
+.manga {
 	position:relative;
 	margin-top: 50px;
 }
-.product:hover .mask{
+.manga:hover .mask{
 	display:block;
 }
-.products-grid img {
+.mangas-grid img {
 	width:100%;
 }
-.products-grid  a {
+.mangas-grid  a {
 	display:block;
 	color:#000;
 	text-transform:uppercase;
@@ -522,10 +522,10 @@ h3.head.text-center {
 	letter-spacing:2px;
 	text-decoration:none;
 }
-a.product_name {
+a.manga_name {
     margin: 15px 0;
 }
-.product-left:hover .p-one{
+.manga-left:hover .p-one{
 	border: 1px solid #8c2830;
 	transition: 0.5s all ease;
 	-webkit-transition: 0.5s all ease;
@@ -533,10 +533,10 @@ a.product_name {
 	-o-transition: 0.5s all ease;
 	-ms-transition: 0.5s all ease;
 }
-.product-left:hover .p-one p a{
+.manga-left:hover .p-one p a{
 	color: #8c2830;
 }
-.product-left:hover .mask{
+.manga-left:hover .mask{
 	display:block;
 }
 .mask {
@@ -553,7 +553,7 @@ a.product_name {
     padding: 6px 12px;
     text-decoration: none;
 }
-.product-left{
+.manga-left{
 	position:relative;
 	text-align:center;
 }
@@ -567,24 +567,24 @@ a.product_name {
 	-moz-transition: 0.7s all;
 	-ms-transition: 0.7s all;
 }
-.product-one {
+.manga-one {
 	margin-top: 4%;
 }
-.product-one:nth-child(1){
+.manga-one:nth-child(1){
 	margin-top:0;
 }
-.product p {
+.manga p {
 	color: #999;
 	font-family: 'Lato-Regular';
 	font-weight: 700;
 	display: inline-block;
 	vertical-align: middle;
 }
-.product p a {
+.manga p a {
 	text-decoration: none;
 	color: #999;
 }
-.product p i {
+.manga p i {
 	background: url(../images/cart.png) no-repeat;
 	width: 20px;
 	height: 14px;
@@ -592,10 +592,10 @@ a.product_name {
 	margin-right: 4px;
 	vertical-align: middle;
 }
-.product-left:hover .product p i{
+.manga-left:hover .manga p i{
 	background: url(../images/cart-2.png) no-repeat;
 }
-/*--end-product--*/
+/*--end-manga--*/
 h3.like{
     font-size: 30px;
     color: #816263;
@@ -673,10 +673,10 @@ a.like_name {
 	right: 0px;
 	background: url(../images/arrows.png) no-repeat -61px -7px;
 }
-.other-products {
+.other-mangas {
     padding: 60px 0;
 }
-.liked-product{
+.liked-manga{
 	margin-top:0;
 }
 /*-- news-letter-starts-here --*/
@@ -762,24 +762,24 @@ ul.f_nav li a{
 	color:#816263;
 }
 /*-- footer-ends-here --*/
-/*-- products-page-starts-here --*/
-.products{
+/*-- mangas-page-starts-here --*/
+.mangas{
 	width:20%;
 	margin-right:2%;
 	float:left;
 }
-.product-listy{
+.manga-listy{
 	background:#91b900;
 }
-ul.product-list{
+ul.manga-list{
 	padding:0em 0 0.5em 0;
 	margin:0.5em 0;
 }
-ul.product-list li{
+ul.manga-list li{
 	display: block;
 	margin:5px 0;
 }
-ul.product-list li a{
+ul.manga-list li a{
 	color:#FFF;
 	text-transform:uppercase;
 	font-size:0.85em;
@@ -789,7 +789,7 @@ ul.product-list li a{
 	font-weight:400;
 	display: block;
 }
-ul.product-list li a:hover{
+ul.manga-list li a:hover{
 	background:#000;
 	color:#fff;
 	padding:5px 2em;
@@ -799,7 +799,7 @@ ul.product-list li a:hover{
 	-moz-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
-.product-listy h2{
+.manga-listy h2{
 	color: #fff;
     background: #816263;
     font-size: 15px;
@@ -879,27 +879,27 @@ ul.tags_links li a:hover{
 	color:#fb4d01;
 	text-decoration:none;
 }
-.new-product{
+.new-manga{
 	width:78%;
 	float:right;
 	background:rgba(245, 243, 243, 0.27);
 	min-height:800px;
 	padding:2em;
 }
-ul.product-top-list{
+ul.manga-top-list{
 	padding:0;
 	float: left;
 }
-ul.product-top-list li{
+ul.manga-top-list li{
 	display: inline-block;
 	font-size:0.82em;
 	color:#777;
 }
-ul.product-top-list li a{
+ul.manga-top-list li a{
 	    color: #816263;
     font-size: 16px;
 }
-ul.product-top-list li span.act{
+ul.manga-top-list li span.act{
 	    background: yellow;
     font-size: 14px;
     padding: 3px;
@@ -974,11 +974,11 @@ p.quick_desc {
 	font-size: 0.8125em;
 	line-height: 1.8em;
 }
-ul.product-qty {
+ul.manga-qty {
 	padding: 0;
 	list-style: none;
 }
-.product-qty span {
+.manga-qty span {
 	color: #555;
 	font-size: 0.85em;
 	padding-bottom: 0.5em;
@@ -986,7 +986,7 @@ ul.product-qty {
 	text-transform: uppercase;
 	margin-top: 2em;
 }
-.product-qty select {
+.manga-qty select {
 	border: 1px solid #eee;
 	padding: 0.5em;
 	font-size: 1em;
@@ -1084,13 +1084,13 @@ p.title {
 	top: 11.5em;
 	left: 8.2em;
 }
-.product_image {
+.manga_image {
     position: relative;
 }
-.product_container {
+.manga_container {
 	padding: 1em;
 }
-.products-page {
+.mangas-page {
 	padding: 4em 0;
 }
 .sort-by select {
@@ -1164,18 +1164,18 @@ ul.women_pagenation li.active a, ul.women_pagenation li a:hover {
 	-moz-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
-.product-listy{
+.manga-listy{
 	background:#9E9C9C;
 }
-ul.product-list{
+ul.manga-list{
 	padding:0em 0 0.5em 0;
 	margin:0.5em 0;
 }
-ul.product-list li{
+ul.manga-list li{
 	display: block;
 	margin:5px 0;
 }
-ul.product-list li a{
+ul.manga-list li a{
 	color:#FFF;
 	text-transform:uppercase;
 	font-size:0.85em;
@@ -1185,7 +1185,7 @@ ul.product-list li a{
 	font-weight:400;
 	display: block;
 }
-ul.product-list li a:hover{
+ul.manga-list li a:hover{
 	background:#816263;
 	color:#fff;
 	padding:5px 2em;
@@ -1235,11 +1235,11 @@ ul.tags_links li a:hover{
 	color:#fb4d01;
 	text-decoration:none;
 }
-ul.product-top-list{
+ul.manga-top-list{
 	padding:0;
 	float: left;
 }
-ul.product-top-list li{
+ul.manga-top-list li{
 	display: inline-block;
 	font-size:0.82em;
 	color:#777;
@@ -1310,11 +1310,11 @@ p.quick_desc {
 	font-size: 0.8125em;
 	line-height: 1.8em;
 }
-ul.product-qty {
+ul.manga-qty {
 	padding: 0;
 	list-style: none;
 }
-.product-qty span {
+.manga-qty span {
 	color: #555;
 	font-size: 0.85em;
 	padding-bottom: 0.5em;
@@ -1322,7 +1322,7 @@ ul.product-qty {
 	text-transform: uppercase;
 	margin-top: 2em;
 }
-.product-qty select {
+.manga-qty select {
 	border: 1px solid #eee;
 	padding: 0.5em;
 	font-size: 1em;
@@ -1385,11 +1385,11 @@ p.title {
 	font-weight: bold;
 	font-size: 0.95em;
 }
-.product_container {
+.manga_container {
 	padding: 1em;
 	border-top: 10px solid #f8f8f8;
 }
-.products-page {
+.mangas-page {
 	padding: 60px 0;
 }
 /*---- Best Buy Starts Here ---*/
@@ -1429,7 +1429,7 @@ ul.women_pagenation li.active a, ul.women_pagenation li a:hover {
 	font-weight: normal;
 	margin: 0;
 }
-.product_image:hover .mask {
+.manga_image:hover .mask {
     display: block;
     transition:0.5s all;
 	-webkit-transition:0.5s all;
@@ -1437,7 +1437,7 @@ ul.women_pagenation li.active a, ul.women_pagenation li a:hover {
 	-o-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
-/*-- products-page-ends-here --*/
+/*-- mangas-page-ends-here --*/
 /*-- login-starts-here --*/
 .login-left {
 	padding: 0;
@@ -2256,7 +2256,7 @@ p.right {
 	h3.head.text-center {
 		font-size: 30px;
 	}
-	.product {
+	.manga {
 		margin-top: 40px;
 	}
 	.mask {
@@ -2266,7 +2266,7 @@ p.right {
 	.nbs-flexisel-item img {
 		width:95%;
 	}
-	.liked-product {
+	.liked-manga {
 		margin-top: 0;
 	}
 	h3.like {
@@ -2281,13 +2281,13 @@ p.right {
 	.news-letter {
 		padding: 30px 0;
 	}
-	.typrography,.products-page,.registration-form,.login-page,.contact,.cart-items {
+	.typrography,.mangas-page,.registration-form,.login-page,.contact,.cart-items {
 		padding: 30px 0 40px;
 	}
 	.mens-toolbar .sort {
 		width: 22.5%;
 	}
-	.new-product {
+	.new-manga {
 		padding: 1.5em;
 	}
 	.offer p {
@@ -2357,13 +2357,13 @@ p.right {
 		width: 30px;
 		height: 4px;
 	}
-	.product {
+	.manga {
 		margin-top: 30px;
 		float: left;
 		width: 33.333%;
 		padding:0 10px;
 	}
-	a.product_name {
+	a.manga_name {
 		margin: 10px 0;
 	}
 	.mask a {
@@ -2373,7 +2373,7 @@ p.right {
 	.join h6 {
 		font-size: 18px;
 	}
-	.liked-product {
+	.liked-manga {
 		width:100%;
 		margin-top:0;
 	}
@@ -2392,7 +2392,7 @@ p.right {
 	.news-letter {
 		padding: 25px 0;
 	}
-	.other-products {
+	.other-mangas {
 		padding: 35px 0 60px 0;
 	}
 	.span1_of_4 {
@@ -2480,16 +2480,16 @@ p.right {
 	.contact-map iframe {
 		height: 300px;
 	}
-	.new-product {
+	.new-manga {
 		width: 72%;
 	}
-	.products {
+	.mangas {
 		width: 26%;
 	}
 	.mens-toolbar .sort {
 		width: 33.5%;
 	}
-	.new-product {
+	.new-manga {
 		padding: 1em;
 	}
 	.media-left.response-text-left {
@@ -2589,10 +2589,10 @@ p.right {
 	h3.head.text-center {
 		font-size: 28px;
 	}
-	.product {
+	.manga {
 		padding: 0 5px;
 	}
-	.products-grid a {
+	.mangas-grid a {
 		font-size: 13px;
 		letter-spacing: 1px;
 	}
@@ -2644,7 +2644,7 @@ p.right {
 	.login-right span {
 		font-size: 0.9em;
 	}
-	.product-listy h2 {
+	.manga-listy h2 {
 		padding: 18px;
 	}
 	.offer p {
@@ -2686,7 +2686,7 @@ p.right {
 	}
 }
 @media screen and (max-width: 480px) {	
-	.product {
+	.manga {
 		padding: 0 10px;
 		width: 50%;
 	}
@@ -2694,7 +2694,7 @@ p.right {
 		width: 70%;
 		margin-left: 15%;
 	}
-	.liked-product,.contact-right {
+	.liked-manga,.contact-right {
 		width:100%;
 	}
 	.contact-left {
@@ -2779,12 +2779,12 @@ p.right {
 	.follow-us,  .online-order {
 		margin-top: 15px;
 	}	
-	.products {
+	.mangas {
 		width: 100%;
 		margin-bottom:15px;
 		    margin-right: 0;
 	}
-	.new-product {
+	.new-manga {
 		width: 100%;
 	}
 	.latest-bis img {
@@ -2922,7 +2922,7 @@ p.right {
 	.follow-us,	 .online-order {
 		margin-top: 0;
 	}
-	.product {
+	.manga {
 		padding: 0 15px;
 		width: 100%;
 	}
@@ -3048,7 +3048,7 @@ p.right {
 		display:none;
 	}
 	
-	.product_image:hover .mask {
+	.manga_image:hover .mask {
 		display: none;
 	}
 	p.tab-text {

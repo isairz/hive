@@ -34,18 +34,18 @@ func init() {
 	// Add Asset Manager, for rich editor
 	assetManager := Admin.AddResource(&media_library.AssetManager{}, &admin.Config{Invisible: false})
 
-	// Add Product
-	product := Admin.AddResource(&models.Product{}, &admin.Config{Menu: []string{"Product Management"}})
-	product.Meta(&admin.Meta{Name: "MadeCountry", Type: "select_one", Collection: Languages})
-	product.Meta(&admin.Meta{Name: "Description", Type: "rich_editor", Resource: assetManager})
+	// Add Manga
+	manga := Admin.AddResource(&models.Manga{}, &admin.Config{Menu: []string{"Manga Management"}})
+	manga.Meta(&admin.Meta{Name: "MadeCountry", Type: "select_one", Collection: Languages})
+	manga.Meta(&admin.Meta{Name: "Description", Type: "rich_editor", Resource: assetManager})
 
-	chapterMeta := product.Meta(&admin.Meta{Name: "Chapters"})
+	chapterMeta := manga.Meta(&admin.Meta{Name: "Chapters"})
 	chapter := chapterMeta.Resource
-	chapter.NewAttrs("-Product")
-	chapter.EditAttrs("-Product")
+	chapter.NewAttrs("-Manga")
+	chapter.EditAttrs("-Manga")
 
-	product.SearchAttrs("Name", "Code", "Category.Name", "Brand.Name")
-	product.EditAttrs(
+	manga.SearchAttrs("Name", "Category.Name")
+	manga.EditAttrs(
 		&admin.Section{
 			Title: "Basic Information",
 			Rows: [][]string{
@@ -63,60 +63,60 @@ func init() {
 
 	for _, country := range Languages {
 		var country = country
-		product.Scope(&admin.Scope{Name: country, Group: "Made Country", Handle: func(db *gorm.DB, ctx *qor.Context) *gorm.DB {
+		manga.Scope(&admin.Scope{Name: country, Group: "Made Country", Handle: func(db *gorm.DB, ctx *qor.Context) *gorm.DB {
 			return db.Where("made_country = ?", country)
 		}})
 	}
 
-	product.IndexAttrs("-Chapters")
+	manga.IndexAttrs("-Chapters")
 
-	product.Action(&admin.Action{
+	manga.Action(&admin.Action{
 		Name: "View On Site",
 		URL: func(record interface{}, context *admin.Context) string {
-			if product, ok := record.(*models.Product); ok {
-				return fmt.Sprintf("/products/%v", product.Code)
+			if manga, ok := record.(*models.Manga); ok {
+				return fmt.Sprintf("/mangas/%v", manga.ID)
 			}
 			return "#"
 		},
 		Modes: []string{"menu_item", "edit"},
 	})
 
-	product.Action(&admin.Action{
+	manga.Action(&admin.Action{
 		Name: "Disable",
 		Handle: func(arg *admin.ActionArgument) error {
 			for _, record := range arg.FindSelectedRecords() {
-				arg.Context.DB.Model(record.(*models.Product)).Update("enabled", false)
+				arg.Context.DB.Model(record.(*models.Manga)).Update("enabled", false)
 			}
 			return nil
 		},
 		Visible: func(record interface{}, context *admin.Context) bool {
-			if product, ok := record.(*models.Product); ok {
-				return product.Enabled == true
+			if manga, ok := record.(*models.Manga); ok {
+				return manga.Enabled == true
 			}
 			return true
 		},
 		Modes: []string{"index", "edit", "menu_item"},
 	})
 
-	product.Action(&admin.Action{
+	manga.Action(&admin.Action{
 		Name: "Enable",
 		Handle: func(arg *admin.ActionArgument) error {
 			for _, record := range arg.FindSelectedRecords() {
-				arg.Context.DB.Model(record.(*models.Product)).Update("enabled", true)
+				arg.Context.DB.Model(record.(*models.Manga)).Update("enabled", true)
 			}
 			return nil
 		},
 		Visible: func(record interface{}, context *admin.Context) bool {
-			if product, ok := record.(*models.Product); ok {
-				return product.Enabled == false
+			if manga, ok := record.(*models.Manga); ok {
+				return manga.Enabled == false
 			}
 			return true
 		},
 		Modes: []string{"index", "edit", "menu_item"},
 	})
 
-	Admin.AddResource(&models.Category{}, &admin.Config{Menu: []string{"Product Management"}})
-	Admin.AddResource(&models.Tag{}, &admin.Config{Menu: []string{"Product Management"}})
+	Admin.AddResource(&models.Category{}, &admin.Config{Menu: []string{"Manga Management"}})
+	Admin.AddResource(&models.Tag{}, &admin.Config{Menu: []string{"Manga Management"}})
 
 	// Add Order
 	order := Admin.AddResource(&models.Order{}, &admin.Config{Menu: []string{"Order Management"}, Invisible: true})
@@ -311,7 +311,7 @@ func init() {
 	exchange_actions.RegisterExchangeJobs(config.Config.I18n, Worker)
 
 	// Add Search Center Resources
-	Admin.AddSearchResource(product, user, order)
+	Admin.AddSearchResource(manga, user, order)
 
 	initFuncMap()
 	initRouter()

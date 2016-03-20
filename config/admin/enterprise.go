@@ -46,25 +46,25 @@ func init() {
 		}{}),
 	})
 
-	productCodeCollection := func(value interface{}, context *qor.Context) [][]string {
-		var products []models.Product
+	mangaCodeCollection := func(value interface{}, context *qor.Context) [][]string {
+		var mangas []models.Manga
 		var results [][]string
-		context.GetDB().Find(&products)
-		for _, product := range products {
-			results = append(results, []string{fmt.Sprint(product.ID), product.Code})
+		context.GetDB().Find(&mangas)
+		for _, manga := range mangas {
+			results = append(results, []string{fmt.Sprint(manga.ID), manga.Code})
 		}
 		return results
 	}
 	combinedDiscountArgument := Admin.NewResource(&struct {
-		ProductCodes []string
+		MangaCodes []string
 		Category     string
 		Quantity     uint
 		Price        float32
 		Percentage   uint
 		Discount     uint
 	}{})
-	combinedDiscountArgument.Meta(&admin.Meta{Name: "ProductCodes", Type: "select_many", Collection: productCodeCollection})
-	combinedDiscountArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Products", "Bags", "Summer Shirts", "Pants"}})
+	combinedDiscountArgument.Meta(&admin.Meta{Name: "MangaCodes", Type: "select_many", Collection: mangaCodeCollection})
+	combinedDiscountArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Mangas", "Bags", "Summer Shirts", "Pants"}})
 	combinedDiscountArgument.Meta(&admin.Meta{Name: "Percentage", Label: "Discount Percentage (e.g enter 10 for a 10% discount)"})
 	combinedDiscountArgument.Meta(&admin.Meta{Name: "Discount", Label: "Discount Amount (e.g enter 10 for a $10 discount)"})
 	promotion.RegisterBenefitHandler(promotion.BenefitHandler{
@@ -77,19 +77,19 @@ func init() {
 		Amount   int
 		Category string
 	}{})
-	amountGreaterThanArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Products", "Bags", "Summer Shirts", "Pants"}})
+	amountGreaterThanArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Mangas", "Bags", "Summer Shirts", "Pants"}})
 	promotion.RegisterRuleHandler(promotion.RuleHandler{
 		Name:     "Amount Greater Than",
 		Resource: amountGreaterThanArgument,
 	})
 
 	quantityGreaterThanArgument := Admin.NewResource(&struct {
-		ProductCodes []string
+		MangaCodes []string
 		Category     string
 		Quantity     int
 	}{})
-	quantityGreaterThanArgument.Meta(&admin.Meta{Name: "ProductCodes", Type: "select_many", Collection: productCodeCollection})
-	quantityGreaterThanArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Products", "Bags", "Summer Shirts", "Pants"}})
+	quantityGreaterThanArgument.Meta(&admin.Meta{Name: "MangaCodes", Type: "select_many", Collection: mangaCodeCollection})
+	quantityGreaterThanArgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Mangas", "Bags", "Summer Shirts", "Pants"}})
 	promotion.RegisterRuleHandler(promotion.RuleHandler{
 		Name:     "Quantity Greater Than",
 		Resource: quantityGreaterThanArgument,
@@ -112,15 +112,15 @@ func init() {
 		}{}),
 	})
 
-	hasProductrgument := Admin.NewResource(&struct {
-		ProductCodes []string
+	hasMangargument := Admin.NewResource(&struct {
+		MangaCodes []string
 		Category     string
 	}{})
-	hasProductrgument.Meta(&admin.Meta{Name: "ProductCodes", Type: "select_many", Collection: productCodeCollection})
-	hasProductrgument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Products", "Bags", "Summer Shirts", "Pants"}})
+	hasMangargument.Meta(&admin.Meta{Name: "MangaCodes", Type: "select_many", Collection: mangaCodeCollection})
+	hasMangargument.Meta(&admin.Meta{Name: "Category", Type: "select_one", Collection: []string{"All Mangas", "Bags", "Summer Shirts", "Pants"}})
 	promotion.RegisterRuleHandler(promotion.RuleHandler{
-		Name:     "Has Product",
-		Resource: hasProductrgument,
+		Name:     "Has Manga",
+		Resource: hasMangargument,
 	})
 
 	// Auto migrations

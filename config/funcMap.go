@@ -11,7 +11,7 @@ var FuncMap = template.FuncMap{
 }
 
 func T(key string, value string, args ...interface{}) template.HTML {
-	return Config.I18n.EnableInlineEdit(true).Default(value).T("en-US", key, args)
+	return Config.I18n.EnableInlineEdit(true).Default(value).T("ko_KR", key, args)
 }
 
 func RenderInlineEditAssets() (template.HTML, error) {

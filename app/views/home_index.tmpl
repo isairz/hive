@@ -5,17 +5,17 @@
 
 <div class="container">
   <div class="main-content">
-    <div class="products-grid">
+    <div class="mangas-grid">
       <header>
-        <h3 class="head text-center">Latest Products</h3>
+        <h3 class="head text-center">Latest Mangas</h3>
       </header>
-      {{range .Products}}
-        <div class="col-md-4 product simpleCart_shelfItem text-center">
+      {{range .Mangas}}
+        <div class="col-md-4 manga simpleCart_shelfItem text-center">
           <a href="{{.DefaultPath}}"><img src="{{.MainImageUrl}}" alt="" /></a>
           <div class="mask">
             <a href="{{.DefaultPath}}">Quick View</a>
           </div>
-          <a class="product_name" href="{{.DefaultPath}}">{{.Name}}</a>
+          <a class="manga_name" href="{{.DefaultPath}}">{{.Name}}</a>
           <p><a class="item_add" href="{{.DefaultPath}}"><i></i> <span class="item_price">${{.Price}}</span></a></p>
         </div>
       {{end}}

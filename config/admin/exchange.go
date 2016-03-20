@@ -9,15 +9,15 @@ import (
 	"github.com/qor/validations"
 )
 
-var ProductExchange *exchange.Resource
+var MangaExchange *exchange.Resource
 
 func init() {
-	ProductExchange = exchange.NewResource(&models.Product{}, exchange.Config{PrimaryField: "Code"})
-	ProductExchange.Meta(&exchange.Meta{Name: "Code"})
-	ProductExchange.Meta(&exchange.Meta{Name: "Name"})
-	ProductExchange.Meta(&exchange.Meta{Name: "Price"})
+	MangaExchange = exchange.NewResource(&models.Manga{}, exchange.Config{PrimaryField: "Code"})
+	MangaExchange.Meta(&exchange.Meta{Name: "Code"})
+	MangaExchange.Meta(&exchange.Meta{Name: "Name"})
+	MangaExchange.Meta(&exchange.Meta{Name: "Price"})
 
-	ProductExchange.AddValidator(func(record interface{}, metaValues *resource.MetaValues, context *qor.Context) error {
+	MangaExchange.AddValidator(func(record interface{}, metaValues *resource.MetaValues, context *qor.Context) error {
 		if utils.ToInt(metaValues.Get("Price").Value) < 100 {
 			return validations.NewError(record, "Price", "price can't less than 100")
 		}

@@ -10,8 +10,8 @@ import (
 )
 
 func HomeIndex(ctx *gin.Context) {
-	var products []models.Product
-	db.DB.Limit(9).Preload("Chapters").Preload("Chapters.Images").Find(&products)
+	var mangas []models.Manga
+	db.DB.Limit(9).Preload("Chapters").Preload("Chapters.Images").Find(&mangas)
 	seoObj := models.SEOSetting{}
 	db.DB.First(&seoObj)
 
@@ -20,7 +20,7 @@ func HomeIndex(ctx *gin.Context) {
 		"home_index.tmpl",
 		gin.H{
 			"SeoTag":   seoObj.HomePage.Render(seoObj, nil),
-			"Products": products,
+			"Mangas": mangas,
 			"MicroSearch": seo.MicroSearch{
 				URL:    "http://demo.getqor.com",
 				Target: "http://demo.getqor.com/search?q={keyword}",

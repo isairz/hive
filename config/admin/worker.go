@@ -40,21 +40,21 @@ func getWorker() *worker.Worker {
 		Resource: Admin.NewResource(&sendNewsletterArgument{}),
 	})
 
-	type importProductArgument struct {
+	type importMangaArgument struct {
 		File media_library.FileSystem
 	}
 
 	Worker.RegisterJob(&worker.Job{
-		Name:  "Import Products",
-		Group: "Products Management",
+		Name:  "Import Mangas",
+		Group: "Mangas Management",
 		Handler: func(arg interface{}, qorJob worker.QorJobInterface) error {
-			argument := arg.(*importProductArgument)
+			argument := arg.(*importMangaArgument)
 
 			context := &qor.Context{DB: db.DB}
 
 			var errorCount uint
 
-			if err := ProductExchange.Import(
+			if err := MangaExchange.Import(
 				csv.New(path.Join("public", argument.File.URL())),
 				context,
 				func(progress exchange.Progress) error {
@@ -94,7 +94,7 @@ func getWorker() *worker.Worker {
 					}
 
 					qorJob.SetProgress(uint(float32(progress.Current) / float32(progress.Total) * 100))
-					qorJob.AddLog(fmt.Sprintf("%d/%d Importing product %v", progress.Current, progress.Total, progress.Value.(*models.Product).Code))
+					qorJob.AddLog(fmt.Sprintf("%d/%d Importing manga %v", progress.Current, progress.Total, progress.Value.(*models.Manga).ID))
 					return nil
 				},
 			); err != nil {
@@ -103,29 +103,29 @@ func getWorker() *worker.Worker {
 
 			return nil
 		},
-		Resource: Admin.NewResource(&importProductArgument{}),
+		Resource: Admin.NewResource(&importMangaArgument{}),
 	})
 
 	Worker.RegisterJob(&worker.Job{
-		Name:  "Export Products",
-		Group: "Products Management",
+		Name:  "Export Mangas",
+		Group: "Mangas Management",
 		Handler: func(arg interface{}, qorJob worker.QorJobInterface) error {
-			qorJob.AddLog("Exporting products...")
+			qorJob.AddLog("Exporting mangas...")
 
 			context := &qor.Context{DB: db.DB}
-			fileName := fmt.Sprintf("/downloads/products.%v.csv", time.Now().UnixNano())
-			if err := ProductExchange.Export(
+			fileName := fmt.Sprintf("/downloads/mangas.%v.csv", time.Now().UnixNano())
+			if err := MangaExchange.Export(
 				csv.New(path.Join("public", fileName)),
 				context,
 				func(progress exchange.Progress) error {
-					qorJob.AddLog(fmt.Sprintf("%v/%v Exporting product %v", progress.Current, progress.Total, progress.Value.(*models.Product).Code))
+					qorJob.AddLog(fmt.Sprintf("%v/%v Exporting manga %v", progress.Current, progress.Total, progress.Value.(*models.Manga).ID))
 					return nil
 				},
 			); err != nil {
 				qorJob.AddLog(err.Error())
 			}
 
-			qorJob.SetProgressText(fmt.Sprintf("<a href='%v'>Download exported products</a>", fileName))
+			qorJob.SetProgressText(fmt.Sprintf("<a href='%v'>Download exported mangas</a>", fileName))
 			return nil
 		},
 	})

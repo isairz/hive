@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+{{.SeoTag}}
+
+{{renderInlineEditAssets}}
+
+</head>
+<body>
+
+<h1>{{t "manga_page.all_manga" "All Mangas" }}</h1>
+
+<div class="mangas">
+  {{range .Mangas}}
+    <div>
+      <a href="/mangas/{{.ID}}">{{.Name}}</a>
+    </div>
+  {{end}}
+</div>
+
+<p>
+  {{ t "manga_page.description" "Manga Description"  }}
+</p>
+
+{{.MicroSearch}}
+{{.MicroContact}}
+
+</body>
+</html>

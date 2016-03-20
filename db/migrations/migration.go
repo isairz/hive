@@ -15,7 +15,7 @@ var Admin *admin.Admin
 func init() {
 	AutoMigrate(&media_library.AssetManager{})
 
-	AutoMigrate(&models.Product{}, &models.Chapter{}, &models.ChapterImage{})
+	AutoMigrate(&models.Manga{}, &models.Chapter{}, &models.ChapterImage{})
 	AutoMigrate(&models.Category{}, &models.Tag{})
 
 	AutoMigrate(&models.Address{})

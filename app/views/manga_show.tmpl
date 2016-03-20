@@ -1,14 +1,14 @@
 {{template "header" .}}
   <!-- content-section-starts -->
-  {{.MicroProduct}}
+  {{.MicroManga}}
   <div class="container">
-    <div class="products-page">
-      <div class="products">
-        <div class="product-listy">
-          <h2>our Products</h2>
-          <ul class="product-list">
-            <li><a href="/">New Products</a></li>
-            <li><a href="/">Old Products</a></li>
+    <div class="mangas-page">
+      <div class="mangas">
+        <div class="manga-listy">
+          <h2>our Mangas</h2>
+          <ul class="manga-list">
+            <li><a href="/">New Mangas</a></li>
+            <li><a href="/">Old Mangas</a></li>
             <li><a href="/">T-shirts</a></li>
             <li><a href="/">pants</a></li>
             <li><a href="/">Dress</a></li>
@@ -18,7 +18,7 @@
         </div>
       </div>
       {{with .ColorVariation }}
-      <div class="new-product">
+      <div class="new-manga">
         <div class="col-md-5 zoom-grid">
           <div class="flexslider">
             <ul class="slides">
@@ -34,14 +34,14 @@
         </div>
         <div class="col-md-7 dress-info">
           <div class="dress-name">
-            <h3>{{.Product.Name}}</h3>
-            <span>${{.Product.Price}}</span>
+            <h3>{{.Manga.Name}}</h3>
+            <span>${{.Manga.Price}}</span>
             <div class="clearfix"></div>
-            <p>{{.Product.Description}}</p>
+            <p>{{.Manga.Description}}</p>
           </div>
           <div class="span span2">
             <p class="left">MADE IN</p>
-            <p class="right">{{.Product.MadeCountry}}</p>
+            <p class="right">{{.Manga.MadeCountry}}</p>
             <div class="clearfix"></div>
           </div>
           <div class="span span3">

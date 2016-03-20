@@ -12,9 +12,9 @@ var API *admin.Admin
 func init() {
 	API = admin.New(&qor.Config{DB: db.DB})
 
-	Product := API.AddResource(&models.Product{})
+	Manga := API.AddResource(&models.Manga{})
 
-	ChapterMeta := Product.Meta(&admin.Meta{Name: "Chapters"})
+	ChapterMeta := Manga.Meta(&admin.Meta{Name: "Chapters"})
 	Chapter := ChapterMeta.Resource
 	Chapter.IndexAttrs("ID", "Chapter", "Images")
 	Chapter.ShowAttrs("Chapter", "Images")
