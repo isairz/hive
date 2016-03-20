@@ -11,7 +11,7 @@ import (
 
 func HomeIndex(ctx *gin.Context) {
 	var products []models.Product
-	db.DB.Limit(9).Preload("ColorVariations").Preload("ColorVariations.Images").Find(&products)
+	db.DB.Limit(9).Preload("Chapters").Preload("Chapters.Images").Find(&products)
 	seoObj := models.SEOSetting{}
 	db.DB.First(&seoObj)
 

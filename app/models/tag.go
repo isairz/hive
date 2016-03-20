@@ -6,7 +6,7 @@ import (
 	"github.com/qor/publish"
 )
 
-type Collection struct {
+type Tag struct {
 	gorm.Model
 	Name string
 	l10n.LocaleCreatable

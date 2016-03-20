@@ -3,7 +3,6 @@ package admin
 import (
 	"errors"
 	"fmt"
-	"strconv"
 	"strings"
 
 	"github.com/jinzhu/gorm"
@@ -22,39 +21,28 @@ import (
 )
 
 var Admin *admin.Admin
-var Countries = []string{"China", "Japan", "USA"}
+var Languages = []string{"Korean", "Japanese"}
 
 func init() {
 	Admin = admin.New(&qor.Config{DB: db.Publish.DraftDB()})
-	Admin.SetSiteName("Qor DEMO")
+	Admin.SetSiteName("Spica Terrible!!")
 	Admin.SetAuth(Auth{})
 
 	// Add Dashboard
 	Admin.AddMenu(&admin.Menu{Name: "Dashboard", Link: "/admin"})
 
 	// Add Asset Manager, for rich editor
-	assetManager := Admin.AddResource(&media_library.AssetManager{}, &admin.Config{Invisible: true})
+	assetManager := Admin.AddResource(&media_library.AssetManager{}, &admin.Config{Invisible: false})
 
 	// Add Product
 	product := Admin.AddResource(&models.Product{}, &admin.Config{Menu: []string{"Product Management"}})
-	product.Meta(&admin.Meta{Name: "MadeCountry", Type: "select_one", Collection: Countries})
+	product.Meta(&admin.Meta{Name: "MadeCountry", Type: "select_one", Collection: Languages})
 	product.Meta(&admin.Meta{Name: "Description", Type: "rich_editor", Resource: assetManager})
 
-	colorVariationMeta := product.Meta(&admin.Meta{Name: "ColorVariations"})
-	colorVariation := colorVariationMeta.Resource
-	colorVariation.NewAttrs("-Product")
-	colorVariation.EditAttrs("-Product")
-
-	sizeVariationMeta := colorVariation.Meta(&admin.Meta{Name: "SizeVariations"})
-	sizeVariation := sizeVariationMeta.Resource
-	sizeVariation.NewAttrs("-ColorVariation")
-	sizeVariation.EditAttrs(
-		&admin.Section{
-			Rows: [][]string{
-				{"Size", "AvailableQuantity"},
-			},
-		},
-	)
+	chapterMeta := product.Meta(&admin.Meta{Name: "Chapters"})
+	chapter := chapterMeta.Resource
+	chapter.NewAttrs("-Product")
+	chapter.EditAttrs("-Product")
 
 	product.SearchAttrs("Name", "Code", "Category.Name", "Brand.Name")
 	product.EditAttrs(
@@ -62,26 +50,25 @@ func init() {
 			Title: "Basic Information",
 			Rows: [][]string{
 				{"Name"},
-				{"Code", "Price"},
 				{"Enabled"},
 			}},
 		&admin.Section{
 			Title: "Organization",
 			Rows: [][]string{
-				{"Category", "Collections", "MadeCountry"},
+				{"Category", "Tags", "MadeCountry"},
 			}},
 		"Description",
-		"ColorVariations",
+		"Chapters",
 	)
 
-	for _, country := range Countries {
+	for _, country := range Languages {
 		var country = country
 		product.Scope(&admin.Scope{Name: country, Group: "Made Country", Handle: func(db *gorm.DB, ctx *qor.Context) *gorm.DB {
 			return db.Where("made_country = ?", country)
 		}})
 	}
 
-	product.IndexAttrs("-ColorVariations")
+	product.IndexAttrs("-Chapters")
 
 	product.Action(&admin.Action{
 		Name: "View On Site",
@@ -128,19 +115,16 @@ func init() {
 		Modes: []string{"index", "edit", "menu_item"},
 	})
 
-	Admin.AddResource(&models.Color{}, &admin.Config{Menu: []string{"Product Management"}})
-	Admin.AddResource(&models.Size{}, &admin.Config{Menu: []string{"Product Management"}})
 	Admin.AddResource(&models.Category{}, &admin.Config{Menu: []string{"Product Management"}})
-	Admin.AddResource(&models.Collection{}, &admin.Config{Menu: []string{"Product Management"}})
+	Admin.AddResource(&models.Tag{}, &admin.Config{Menu: []string{"Product Management"}})
 
 	// Add Order
-	order := Admin.AddResource(&models.Order{}, &admin.Config{Menu: []string{"Order Management"}})
+	order := Admin.AddResource(&models.Order{}, &admin.Config{Menu: []string{"Order Management"}, Invisible: true})
 	order.Meta(&admin.Meta{Name: "ShippingAddress", Type: "single_edit"})
 	order.Meta(&admin.Meta{Name: "BillingAddress", Type: "single_edit"})
 	order.Meta(&admin.Meta{Name: "ShippedAt", Type: "date"})
 
 	orderItemMeta := order.Meta(&admin.Meta{Name: "OrderItems"})
-	orderItemMeta.Resource.Meta(&admin.Meta{Name: "SizeVariation", Type: "select_one", Collection: sizeVariationCollection})
 	orderItemMeta.Resource.NewAttrs("-State")
 	orderItemMeta.Resource.EditAttrs("-State")
 
@@ -252,7 +236,7 @@ func init() {
 	activity.Register(order)
 
 	// Define another resource for same model
-	abandonedOrder := Admin.AddResource(&models.Order{}, &admin.Config{Name: "Abandoned Order", Menu: []string{"Order Management"}})
+	abandonedOrder := Admin.AddResource(&models.Order{}, &admin.Config{Name: "Abandoned Order", Menu: []string{"Order Management"}, Invisible: true})
 	abandonedOrder.Meta(&admin.Meta{Name: "ShippingAddress", Type: "single_edit"})
 	abandonedOrder.Meta(&admin.Meta{Name: "BillingAddress", Type: "single_edit"})
 
@@ -331,11 +315,4 @@ func init() {
 
 	initFuncMap()
 	initRouter()
-}
-
-func sizeVariationCollection(resource interface{}, context *qor.Context) (results [][]string) {
-	for _, sizeVariation := range models.SizeVariations() {
-		results = append(results, []string{strconv.Itoa(int(sizeVariation.ID)), sizeVariation.Stringify()})
-	}
-	return
 }

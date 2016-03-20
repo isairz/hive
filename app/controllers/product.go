@@ -41,19 +41,19 @@ func ProductIndex(ctx *gin.Context) {
 func ProductShow(ctx *gin.Context) {
 	var (
 		product        models.Product
-		colorVariation models.ColorVariation
+		chapter        models.Chapter
 		seoSetting     models.SEOSetting
 		codes          = strings.Split(ctx.Param("code"), "_")
 		productCode    = codes[0]
-		colorCode      string
+		chapterCode    string
 	)
 
 	if len(codes) > 1 {
-		colorCode = codes[1]
+		chapterCode = codes[1]
 	}
 
 	db.DB.Where(&models.Product{Code: productCode}).First(&product)
-	db.DB.Preload("Images").Preload("Product").Preload("Color").Preload("SizeVariations.Size").Where(&models.ColorVariation{ProductID: product.ID, ColorCode: colorCode}).First(&colorVariation)
+	db.DB.Preload("Images").Preload("Product").Where(&models.Chapter{ProductID: product.ID, ChapterCode: chapterCode}).First(&chapter)
 	db.DB.First(&seoSetting)
 
 	ctx.HTML(
@@ -61,7 +61,7 @@ func ProductShow(ctx *gin.Context) {
 		"product_show.tmpl",
 		gin.H{
 			"Product":        product,
-			"ColorVariation": colorVariation,
+			"ChapterVariation": chapter,
 			"SeoTag":         seoSetting.ProductPage.Render(seoSetting, product),
 			"MicroProduct": seo.MicroProduct{
 				Name:        product.Name,
@@ -69,7 +69,7 @@ func ProductShow(ctx *gin.Context) {
 				BrandName:   product.Category.Name,
 				SKU:         product.Code,
 				Price:       float64(product.Price),
-				Image:       colorVariation.MainImageUrl(),
+				Image:       chapter.MainImageUrl(),
 			}.Render(),
 		},
 	)

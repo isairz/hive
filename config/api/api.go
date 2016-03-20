@@ -14,15 +14,10 @@ func init() {
 
 	Product := API.AddResource(&models.Product{})
 
-	ColorVariationMeta := Product.Meta(&admin.Meta{Name: "ColorVariations"})
-	ColorVariation := ColorVariationMeta.Resource
-	ColorVariation.IndexAttrs("ID", "Color", "Images", "SizeVariations")
-	ColorVariation.ShowAttrs("Color", "Images", "SizeVariations")
-
-	SizeVariationMeta := ColorVariation.Meta(&admin.Meta{Name: "SizeVariations"})
-	SizeVariation := SizeVariationMeta.Resource
-	SizeVariation.IndexAttrs("ID", "Size", "AvailableQuantity")
-	SizeVariation.ShowAttrs("ID", "Size", "AvailableQuantity")
+	ChapterMeta := Product.Meta(&admin.Meta{Name: "Chapters"})
+	Chapter := ChapterMeta.Resource
+	Chapter.IndexAttrs("ID", "Chapter", "Images")
+	Chapter.ShowAttrs("Chapter", "Images")
 
 	API.AddResource(&models.Order{})
 	API.AddResource(&models.User{})

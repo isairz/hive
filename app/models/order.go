@@ -28,8 +28,6 @@ type Order struct {
 type OrderItem struct {
 	gorm.Model
 	OrderID         uint
-	SizeVariationID uint
-	SizeVariation   SizeVariation
 	Quantity        uint
 	Price           float32
 	DiscountRate    uint
