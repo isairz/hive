@@ -17,5 +17,5 @@ func (user User) DisplayName() string {
 }
 
 func (user User) AvailableLocales() []string {
-	return []string{"en-US", "zh-CN"}
+	return []string{"ko-KR"}
 }
