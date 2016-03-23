@@ -47,7 +47,7 @@ func MangaShow(ctx *gin.Context) {
 	)
 
 	db.DB.First(&manga, mangaID)
-	db.DB.Preload("Images").Preload("Manga").First(&chapter, chapterID)
+	db.DB.Preload("Manga").First(&chapter, chapterID)
 	db.DB.First(&seoSetting)
 
 	ctx.HTML(

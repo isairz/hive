@@ -1,12 +1,12 @@
 package admin
 
 import (
-	"errors"
+	_ "errors"
 	"fmt"
-	"strings"
+	// "strings"
 
 	"github.com/jinzhu/gorm"
-	"github.com/qor/activity"
+	_ "github.com/qor/activity"
 	"github.com/qor/admin"
 	"github.com/qor/i18n/exchange_actions"
 	"github.com/qor/media_library"
@@ -14,14 +14,14 @@ import (
 	"github.com/isairz/hive/app/models"
 	"github.com/isairz/hive/config"
 	"github.com/isairz/hive/db"
-	"github.com/qor/qor/resource"
-	"github.com/qor/qor/utils"
-	"github.com/qor/transition"
-	"github.com/qor/validations"
+	_ "github.com/qor/qor/resource"
+	_ "github.com/qor/qor/utils"
+	_ "github.com/qor/transition"
+	_ "github.com/qor/validations"
 )
 
 var Admin *admin.Admin
-var Languages = []string{"Korean", "Japanese"}
+var PublishedCountry = []string{"Korean", "Japanese"}
 
 func init() {
 	Admin = admin.New(&qor.Config{DB: db.Publish.DraftDB()})
@@ -36,7 +36,7 @@ func init() {
 
 	// Add Manga
 	manga := Admin.AddResource(&models.Manga{}, &admin.Config{Menu: []string{"Manga Management"}})
-	manga.Meta(&admin.Meta{Name: "MadeCountry", Type: "select_one", Collection: Languages})
+	manga.Meta(&admin.Meta{Name: "PublishedCountry", Type: "select_one", Collection: PublishedCountry})
 	manga.Meta(&admin.Meta{Name: "Description", Type: "rich_editor", Resource: assetManager})
 
 	chapterMeta := manga.Meta(&admin.Meta{Name: "Chapters"})
@@ -61,7 +61,7 @@ func init() {
 		"Chapters",
 	)
 
-	for _, country := range Languages {
+	for _, country := range PublishedCountry {
 		var country = country
 		manga.Scope(&admin.Scope{Name: country, Group: "Made Country", Handle: func(db *gorm.DB, ctx *qor.Context) *gorm.DB {
 			return db.Where("made_country = ?", country)
@@ -117,7 +117,7 @@ func init() {
 
 	Admin.AddResource(&models.Category{}, &admin.Config{Menu: []string{"Manga Management"}})
 	Admin.AddResource(&models.Tag{}, &admin.Config{Menu: []string{"Manga Management"}})
-
+/*
 	// Add Order
 	order := Admin.AddResource(&models.Order{}, &admin.Config{Menu: []string{"Order Management"}, Invisible: true})
 	order.Meta(&admin.Meta{Name: "ShippingAddress", Type: "single_edit"})
@@ -278,7 +278,7 @@ func init() {
 
 	// Add Translations
 	Admin.AddResource(config.Config.I18n, &admin.Config{Menu: []string{"Site Management"}})
-
+*/
 	// Add SEOSetting
 	Admin.AddResource(&models.SEOSetting{}, &admin.Config{Menu: []string{"Site Management"}, Singleton: true})
 
@@ -311,7 +311,7 @@ func init() {
 	exchange_actions.RegisterExchangeJobs(config.Config.I18n, Worker)
 
 	// Add Search Center Resources
-	Admin.AddSearchResource(manga, user, order)
+	Admin.AddSearchResource(manga, user)
 
 	initFuncMap()
 	initRouter()

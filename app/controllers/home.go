@@ -11,7 +11,7 @@ import (
 
 func HomeIndex(ctx *gin.Context) {
 	var mangas []models.Manga
-	db.DB.Limit(9).Preload("Chapters").Preload("Chapters.Images").Find(&mangas)
+	db.DB.Limit(12).Preload("Chapters").Preload("Chapters.Images").Find(&mangas)
 	seoObj := models.SEOSetting{}
 	db.DB.First(&seoObj)
 

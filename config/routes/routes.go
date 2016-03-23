@@ -22,6 +22,7 @@ func Router() *http.ServeMux {
 	router.GET("/", controllers.HomeIndex)
 	router.GET("/mangas", controllers.MangaIndex)
 	router.GET("/mangas/:manga_id", controllers.MangaShow)
+    router.GET("/mangas/:manga_id/:chapter_id", controllers.MangaShow)
 
 	var mux = http.NewServeMux()
 	mux.Handle("/", router)

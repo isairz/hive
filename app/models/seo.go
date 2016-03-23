@@ -10,5 +10,5 @@ type SEOSetting struct {
 	SiteName    string
 	DefaultPage seo.Setting
 	HomePage    seo.Setting
-	MangaPage seo.Setting `seo:"Name,Code"`
+	MangaPage seo.Setting `seo:"Name,ID"`
 }
