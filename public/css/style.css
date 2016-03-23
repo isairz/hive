@@ -14,6 +14,11 @@
   flex-shrink: 0;
 }
 
+.container {
+  max-width: 1080px;
+  margin: auto;
+}
+
 .page {
   width: 100%;
 }

@@ -1,9 +1,8 @@
 {{template "header" .}}
   <!-- content-section-starts -->
   {{.MicroManga}}
-  <div class="demo-container mdl-grid">
-    <div class="mdl-cell mdl-cell--2-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <div class="demo-content content mdl-color-text--grey-800 mdl-cell mdl-cell--8-col">
+  <div class="container mdl-grid">
+    <div class="demo-content content mdl-color-text--grey-800">
       {{with .Chapter}}
       <div class="mdl-grid">
         <div class="dress-info">
@@ -17,20 +16,16 @@
           </div>
           {{end}}
         </div>
+      {{end}}
         <div>
-          {{with .Storage}}
-            {{range .Pages}}
-            <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
-              <div class="mdl-card__media">
-                <img class="page" src="{{.}}">
-              </div>
-            </div>
-            {{end}}
+          {{range .Pages}}
+          <div class="mdl-card mdl-shadow--4dp mdl-cell mdl-cell--12-col">
+              <img class="page" src="{{.}}">
+          </div>
           {{end}}
         </div>
       </div>
-		</div>
-    {{end}}
+    </div>
   </div>
   <div class="clearfix"></div>
   </div>

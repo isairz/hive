@@ -50,12 +50,18 @@ func MangaShow(ctx *gin.Context) {
 	db.DB.Preload("Manga").First(&chapter, chapterID)
 	db.DB.First(&seoSetting)
 
+	pages := make([]string, chapter.Storage.Pages)
+	for i := uint(1); i <= chapter.Storage.Pages; i++ {
+		pages[i - 1] = chapter.GetPage(i)
+	}
+
 	ctx.HTML(
 		http.StatusOK,
 		"manga_show.tmpl",
 		gin.H{
 			"Manga":        manga,
 			"Chapter":      chapter,
+			"Pages":        pages,
 			"SeoTag":       seoSetting.MangaPage.Render(seoSetting, manga),
 		},
 	)

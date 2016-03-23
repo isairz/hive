@@ -33,8 +33,7 @@ func (archiveHandler) Handle(media media_library.MediaLibrary, file multipart.Fi
 		return err
 	}
 
-	page := 0
-	var pages []string
+	pages := uint(0)
 	for _, f := range r.File {
 		rc, err := f.Open()
 		if err != nil {
@@ -56,13 +55,12 @@ func (archiveHandler) Handle(media media_library.MediaLibrary, file multipart.Fi
 		  	ext != ".gif" {
 			  continue
 		}
-		page++
+		pages++
 		basepath := filepath.Dir(media.URL())
-		filename := fmt.Sprintf("%03d%s", page, ext)
+		filename := fmt.Sprintf("%03d", pages)
 		url := filepath.Join(basepath, filename)
 		fmt.Printf("%s\n", url)
 		media.Store(url, option, rc)
-		pages = append(pages, url)
 	}
     media.SetPages(pages)
 	return

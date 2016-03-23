@@ -21,8 +21,10 @@ type Manga struct {
 	NameWithSlug    slug.Slug        `l10n:"sync"`
 	CategoryID      uint             `l10n:"sync"`
 	Category        Category         `l10n:"sync"`
+	Authors         []Author         `l10n:"sync" gorm:"many2many:manga_authors"`
+	Characters      []Character      `l10n:"sync" gorm:"many2many:manga_characters"`
 	Tags            []Tag            `l10n:"sync" gorm:"many2many:manga_tags"`
-	PublishedCountry     string           `l10n:"sync"`
+	PublishedCountry     string      `l10n:"sync"`
 	Description     string           `sql:"size:2000"`
 	Chapters        []Chapter
 	Enabled         bool
@@ -51,13 +53,13 @@ type Chapter struct {
 	Name         string
 	MangaID      uint
 	Manga        Manga
-	Storage      ChapterStorage `sql:"type:varchar(40960)"`
+	Storage      ChapterStorage `sql:"type:varchar(4096)"`
 }
 
 func (chapter Chapter) DefaultName() string {
-    if (len(chapter.Name) > 1) {
-        return chapter.Name
-    }
+	if (len(chapter.Name) > 1) {
+		return chapter.Name
+	}
 	return chapter.Manga.Name
 }
 
@@ -71,17 +73,10 @@ type ChapterStorage struct {
 
 func (chapter Chapter) MainImageUrl() string {
 	imageURL := "/images/default_manga.png"
-	if url := chapter.Storage.GetFirstPage(); len(url) > 0 {
+	if url := chapter.GetPage(1); len(url) > 0 {
 		imageURL = url
 	}
 	return imageURL
-}
-
-func (storage ChapterStorage) GetFirstPage() string {
-	if len(storage.Pages) > 0 {
-		return storage.Pages[0]
-	}
-	return ""
 }
 
 // func (ChapterStorage) GetSizes() map[string]media_library.Size {
@@ -99,13 +94,9 @@ func (ChapterStorage) GetURLTemplate(option *media_library.Option) (path string)
 	return
 }
 
-func (b *ChapterStorage) GetPages() []string {
-    fmt.Printf("get %v\n", b.Pages)
-	return b.Pages
-}
-
-func (b *ChapterStorage) SetPages(urls []string) bool {
-    fmt.Printf("%v\n",urls)
-	b.Pages = urls
-	return true
+func (chapter Chapter) GetPage(page uint) string {
+	if (page < 0 || page > chapter.Storage.Pages) {
+		return ""
+	}
+	return fmt.Sprintf("/system/chapters/%d/%03d", chapter.ID, page)
 }

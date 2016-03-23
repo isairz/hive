@@ -55,8 +55,12 @@ func init() {
 		&admin.Section{
 			Title: "Organization",
 			Rows: [][]string{
-				{"Category", "Tags", "MadeCountry"},
-			}},
+				{"Authors"},
+                {"Category"},
+                {"Characters"},
+                {"Tags"},
+                {"MadeCountry"},
+            }},
 		"Description",
 		"Chapters",
 	)
@@ -115,7 +119,10 @@ func init() {
 		Modes: []string{"index", "edit", "menu_item"},
 	})
 
+    Admin.AddResource(&models.Chapter{}, &admin.Config{Menu: []string{"Manga Management"}})
+    Admin.AddResource(&models.Author{}, &admin.Config{Menu: []string{"Manga Management"}})
 	Admin.AddResource(&models.Category{}, &admin.Config{Menu: []string{"Manga Management"}})
+    Admin.AddResource(&models.Character{}, &admin.Config{Menu: []string{"Manga Management"}})
 	Admin.AddResource(&models.Tag{}, &admin.Config{Menu: []string{"Manga Management"}})
 /*
 	// Add Order

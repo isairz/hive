@@ -16,7 +16,7 @@ func init() {
 	AutoMigrate(&media_library.AssetManager{})
 
 	AutoMigrate(&models.Manga{}, &models.Chapter{})
-	AutoMigrate(&models.Category{}, &models.Tag{})
+	AutoMigrate(&models.Author{}, &models.Category{}, &models.Character{}, &models.Tag{})
 
 	AutoMigrate(&models.Address{})
 
